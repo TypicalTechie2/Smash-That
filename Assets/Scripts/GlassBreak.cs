@@ -4,32 +4,40 @@ using UnityEngine;
 
 public class GlassBreak : MonoBehaviour
 {
-    public GameObject fracturedGlassPrefab;
-    public float explosionForce = 50f;
-    public float explosionRadius = 5f;
+    private Rigidbody[] rigidbodies;
 
-    void OnCollisionEnter(Collision collision)
+    void Start()
     {
-        if (collision.gameObject.CompareTag("Ball"))
+        // Get all the rigidbodies of the children
+        rigidbodies = GetComponentsInChildren<Rigidbody>();
+
+        // Freeze all the rigidbodies
+        foreach (Rigidbody rb in rigidbodies)
         {
-            BreakGlass();
+            rb.constraints = RigidbodyConstraints.FreezeAll;
         }
     }
 
-    void BreakGlass()
+    private void OnCollisionEnter(Collision other)
     {
-        // Instantiate the fractured glass at the same position and rotation as the original glass
-        GameObject fracturedGlass = Instantiate(fracturedGlassPrefab, transform.position, transform.rotation);
-        // Apply explosion force to each piece of the fractured glass
-        foreach (Transform piece in fracturedGlass.transform)
+        if (other.gameObject.CompareTag("Ball") || other.gameObject.CompareTag("Player"))
         {
-            Rigidbody rb = piece.GetComponent<Rigidbody>();
-            if (rb != null)
+            // Unparent child objects
+            foreach (Transform child in transform)
             {
-                rb.AddExplosionForce(explosionForce, transform.position, explosionRadius);
+                child.parent = null;
+                Destroy(child.gameObject, 5f);
+            }
+
+            Destroy(gameObject);
+
+            // Unfreeze all the rigidbodies
+            foreach (Rigidbody rb in rigidbodies)
+            {
+                rb.constraints = RigidbodyConstraints.None;
+                rb.AddExplosionForce(500f, transform.position, 500f); // Adjust force and radius as needed
+                Destroy(rb.gameObject, 5f);
             }
         }
-        // Destroy the original glass object
-        Destroy(gameObject);
     }
 }
