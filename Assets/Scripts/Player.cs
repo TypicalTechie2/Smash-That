@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 {
     private PlayerCameraShake playerCamera;
     public TMP_Text currentBallCountText;
+    [SerializeField] TMP_Text scoreText;
     [SerializeField] SpawnManager spawnManager;
     [SerializeField] GameObject ballPrefab;
     [SerializeField] float ballSpeed = 50f;
@@ -14,6 +15,8 @@ public class Player : MonoBehaviour
     [SerializeField] float shakeMagnitude = 0.2f;
     private int initialBallCount = 25;
     public int currentBallCount;
+    public int score;
+
 
 
     private void Awake()
@@ -26,6 +29,8 @@ public class Player : MonoBehaviour
     {
         currentBallCount = initialBallCount;
         currentBallCountText.text = currentBallCount.ToString();
+        score = 0;
+        scoreText.text = "Score: " + score;
     }
 
     // Update is called once per frame
@@ -65,22 +70,40 @@ public class Player : MonoBehaviour
 
         else if (currentBallCount <= 0)
         {
-            spawnManager.isGameActive = false;
+            StartCoroutine(CheckGameOver());
+            currentBallCountText.text = 0.ToString();
         }
+
     }
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag("Obstacle"))
+        if (other.gameObject.CompareTag("Obstacle") && currentBallCount > 0)
         {
             Debug.Log("Collided with Obstacle");
-            currentBallCount -= 5;
+            currentBallCount -= 10;
             currentBallCountText.text = currentBallCount.ToString();
 
             if (playerCamera != null)
             {
                 StartCoroutine(playerCamera.cameraShake(shakeDuration, shakeMagnitude));
             }
+        }
+    }
+
+    public void UpdateScore(int newScore)
+    {
+        score = newScore;
+        scoreText.text = "Score: " + score;
+    }
+
+    private IEnumerator CheckGameOver()
+    {
+        yield return new WaitForSeconds(3f);
+
+        if (currentBallCount <= 0)
+        {
+            spawnManager.isGameActive = false;
         }
     }
 }

@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class MoveForward : MonoBehaviour
 {
-    [SerializeField] private float speed = 5f;
+    public float speed = 5f;
+    private SpawnManager spawnManager;
+
+    private void Awake()
+    {
+        spawnManager = FindAnyObjectByType<SpawnManager>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -15,7 +21,7 @@ public class MoveForward : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.back * speed * Time.deltaTime, Space.World);
+        MoveObjects();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -23,6 +29,19 @@ public class MoveForward : MonoBehaviour
         if (other.gameObject.CompareTag("Sensor"))
         {
             Destroy(gameObject);
+        }
+    }
+
+    private void MoveObjects()
+    {
+        if (spawnManager.isGameActive)
+        {
+            transform.Translate(Vector3.back * spawnManager.currentSpeed * Time.deltaTime, Space.World);
+        }
+
+        else
+        {
+            transform.Translate(Vector3.zero);
         }
     }
 }

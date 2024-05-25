@@ -9,12 +9,16 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] GameObject[] obstaclePrefabs;
     [SerializeField] Transform spawnArea;
     public bool isGameActive = true;
+    private float initialSpeed = 5;
+    public float currentSpeed;
 
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(SpawnObject1());
+        currentSpeed = initialSpeed;
+        StartCoroutine(SpawnCrystalBlock());
         StartCoroutine(SpawnObstacles());
+        StartCoroutine(IncreaseSpeed());
     }
 
     // Update is called once per frame
@@ -24,14 +28,14 @@ public class SpawnManager : MonoBehaviour
     }
 
     // Coroutine for spawning object1
-    IEnumerator SpawnObject1()
+    IEnumerator SpawnCrystalBlock()
     {
         while (true)
         {
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(2.5f);
             if (!isGameActive) yield break;
 
-            Vector3 spawnPosition = new Vector3(Random.Range(0, 2) == 0 ? -15f : 15f, -5.25f, spawnArea.position.z);
+            Vector3 spawnPosition = new Vector3(Random.Range(0, 2) == 0 ? -10f : 10f, -5.25f, spawnArea.position.z);
             Instantiate(crystalBlock, spawnPosition, Quaternion.identity);
         }
     }
@@ -41,12 +45,21 @@ public class SpawnManager : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(7f);
+            yield return new WaitForSeconds(3.5f);
             if (!isGameActive) yield break;
 
             int randomIndex = Random.Range(0, obstaclePrefabs.Length);
             Vector3 spawnPosition = new Vector3(0f, 1f, spawnArea.position.z);
             Instantiate(obstaclePrefabs[randomIndex], spawnPosition, Quaternion.identity);
+        }
+    }
+
+    private IEnumerator IncreaseSpeed()
+    {
+        while (isGameActive)
+        {
+            yield return new WaitForSeconds(10f);
+            currentSpeed += 5f;
         }
     }
 }

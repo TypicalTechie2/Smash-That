@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayerBall : MonoBehaviour
@@ -27,6 +28,8 @@ public class PlayerBall : MonoBehaviour
         {
             int addToCurrentBallCount = playerScript.currentBallCount += 5;
             playerScript.currentBallCountText.text = addToCurrentBallCount.ToString();
+
+            playerScript.UpdateScore(playerScript.score + 10);
         }
     }
 }
