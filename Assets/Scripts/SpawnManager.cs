@@ -9,6 +9,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] GameObject[] obstaclePrefabs;
     [SerializeField] Transform spawnArea;
     public bool isGameActive = true;
+    private float maxSpeed = 75;
     private float initialSpeed = 5;
     public float currentSpeed;
 
@@ -32,10 +33,10 @@ public class SpawnManager : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(2.5f);
+            yield return new WaitForSeconds(currentSpeed <= 25 ? 3.5f : 1.5f);
             if (!isGameActive) yield break;
 
-            Vector3 spawnPosition = new Vector3(Random.Range(0, 2) == 0 ? -10f : 10f, -5.25f, spawnArea.position.z);
+            Vector3 spawnPosition = new Vector3(Random.Range(0, 2) == 0 ? -15f : 15f, -10f, spawnArea.position.z);
             Instantiate(crystalBlock, spawnPosition, Quaternion.identity);
         }
     }
@@ -45,7 +46,7 @@ public class SpawnManager : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(3.5f);
+            yield return new WaitForSeconds(currentSpeed <= 25f ? 6f : 4f);
             if (!isGameActive) yield break;
 
             int randomIndex = Random.Range(0, obstaclePrefabs.Length);
@@ -56,7 +57,7 @@ public class SpawnManager : MonoBehaviour
 
     private IEnumerator IncreaseSpeed()
     {
-        while (isGameActive)
+        while (isGameActive && currentSpeed < maxSpeed)
         {
             yield return new WaitForSeconds(10f);
             currentSpeed += 5f;
