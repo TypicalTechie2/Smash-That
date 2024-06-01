@@ -36,7 +36,7 @@ public class GlassBreak : MonoBehaviour
             {
                 rb.constraints = RigidbodyConstraints.None;
                 rb.AddExplosionForce(500f, transform.position, 500f); // Adjust force and radius as needed
-                Destroy(rb.gameObject, 5f);
+                Destroy(rb.gameObject, 3f);
             }
         }
     }

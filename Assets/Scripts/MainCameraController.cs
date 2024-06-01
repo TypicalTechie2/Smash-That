@@ -15,12 +15,10 @@ public class MainCameraController : MonoBehaviour
         // Set initial position and rotation
         transform.position = new Vector3(100, 15, -10);
         transform.rotation = Quaternion.Euler(0, -90, 0);
-
-        StartCoroutine(MoveCamera());
     }
 
 
-    IEnumerator MoveCamera()
+    public IEnumerator MoveCamera()
     {
         // Smoothly move towards player
         Vector3 targetPosition = new Vector3(0, 1, -10);
