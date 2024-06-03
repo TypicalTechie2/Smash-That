@@ -489,7 +489,7 @@ MonoBehaviour:
   scoreText: {fileID: 166383289}
   spawnManager: {fileID: 1243524705}
   ballPrefab: {fileID: 3554201634946086770, guid: f0dfd4302d70574489d14924f547b7f5, type: 3}
-  ballSpeed: 2000
+  ballSpeed: 2500
   shakeDuration: 0.5
   shakeMagnitude: 0.2
   currentBallCount: 0
