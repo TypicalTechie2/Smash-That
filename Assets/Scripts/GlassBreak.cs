@@ -26,6 +26,7 @@ public class GlassBreak : MonoBehaviour
             foreach (Transform child in transform)
             {
                 child.parent = null;
+
                 Destroy(child.gameObject, 5f);
             }
 
@@ -35,8 +36,8 @@ public class GlassBreak : MonoBehaviour
             foreach (Rigidbody rb in rigidbodies)
             {
                 rb.constraints = RigidbodyConstraints.None;
-                rb.AddExplosionForce(500f, transform.position, 500f); // Adjust force and radius as needed
-                Destroy(rb.gameObject, 3f);
+                rb.AddExplosionForce(100f, transform.position, 100f); // Adjust force and radius as needed
+                Destroy(rb.gameObject, 2.5f);
             }
         }
     }

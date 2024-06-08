@@ -6,47 +6,31 @@ using UnityEngine.UI;
 public class MainManager : MonoBehaviour
 {
     public Button playButton;
-    public Image settingsScreenImage;
-    public Image settingsImage;
+    public Image ExitImage;
     public MainCameraController mainCameraController;
-    public SettingsImage settingsImageScript;
-
-    private void Awake()
-    {
-
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    public AudioSource mainMenuAudio;
+    public AudioClip playButtonClip;
+    public AudioClip exitSoundClip;
 
     public void StartGame()
     {
+        mainMenuAudio.PlayOneShot(playButtonClip, 1f);
         playButton.gameObject.SetActive(false);
-        settingsImage.gameObject.SetActive(false);
+        ExitImage.gameObject.SetActive(false);
         StartCoroutine(mainCameraController.MoveCamera());
     }
 
-    public void SettingsScreen()
+    public void ExitGame()
     {
-        settingsImage.gameObject.SetActive(false);
-        playButton.gameObject.SetActive(false);
-        settingsScreenImage.gameObject.SetActive(true);
-        settingsImageScript.Initialize();
-        StartCoroutine(settingsImageScript.ZoomToFinalScale());
+        StartCoroutine(DelayExit());
+
+        Application.Quit();
     }
 
-    public void CloseSettingsScreen()
+    IEnumerator DelayExit()
     {
-        settingsScreenImage.gameObject.SetActive(false);
-        settingsImage.gameObject.SetActive(true);
-        playButton.gameObject.SetActive(true);
+        mainMenuAudio.PlayOneShot(exitSoundClip, 1f);
+
+        yield return new WaitForSeconds(4f);
     }
 }

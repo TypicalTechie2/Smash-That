@@ -9,12 +9,6 @@ public class SettingsImage : MonoBehaviour
     private Vector3 initialScale;
     private Vector3 finalScale;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
     public void Initialize()
     {
         finalScale = transform.localScale;

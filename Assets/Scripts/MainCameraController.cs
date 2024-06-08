@@ -5,30 +5,39 @@ using UnityEngine.SceneManagement;
 
 public class MainCameraController : MonoBehaviour
 {
-    public float moveSpeed = 1.0f;
-    public float rotationSpeed = 1.0f;
-    private bool cameraMoved = false;
+    private Vector3 initialPosition;
+    private Vector3 targetPosition;
+    private Quaternion initialRotation;
+    private Quaternion targetRotation;
+    public float speed = 1f;
+    public bool cameraMoved = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        // Set initial position and rotation
-        transform.position = new Vector3(100, 15, -10);
-        transform.rotation = Quaternion.Euler(0, -90, 0);
+        initialPosition = transform.localPosition;
+        initialRotation = transform.localRotation;
     }
 
 
+    //Smooth Camera Transition upon click/touch Play Button
     public IEnumerator MoveCamera()
     {
-        // Smoothly move towards player
-        Vector3 targetPosition = new Vector3(0, 1, -10);
-        Quaternion targetRotation = Quaternion.Euler(0, 0, 0);
-        while (Vector3.Distance(transform.position, targetPosition) > 0.05f || Quaternion.Angle(transform.rotation, targetRotation) > 1.0f)
+        targetPosition = new Vector3(0, 1, -10);
+        targetRotation = Quaternion.Euler(0, 0, 0);
+
+        float elapsedTime = 0.0f;
+
+        while (elapsedTime < speed)
         {
-            transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * moveSpeed);
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+            transform.position = Vector3.Lerp(initialPosition, targetPosition, elapsedTime / speed);
+            transform.rotation = Quaternion.Lerp(initialRotation, targetRotation, elapsedTime / speed);
+            elapsedTime += Time.deltaTime;
             yield return null;
         }
+
+        transform.localPosition = targetPosition;
+        transform.localRotation = targetRotation;
 
         // Camera has reached its target position and rotation
         cameraMoved = true;
@@ -36,4 +45,5 @@ public class MainCameraController : MonoBehaviour
         // Now switch to the game scene
         SceneManager.LoadScene("Game Scene");
     }
+
 }
