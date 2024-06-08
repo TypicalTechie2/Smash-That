@@ -8698,7 +8698,6 @@ GameObject:
   - component: {fileID: 1443449934}
   - component: {fileID: 1443449933}
   - component: {fileID: 1443449936}
-  - component: {fileID: 1443449937}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -8857,28 +8856,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1443449937
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1443449932}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6888ac9330caab4f95a7868fd747a30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skyBoxes:
-  - {fileID: 2100000, guid: e700f6bdf87e175479e40a95f874927c, type: 2}
-  - {fileID: 2100000, guid: 7f98e7ff226cc8c449a7da08501e09b5, type: 2}
-  - {fileID: 2100000, guid: eff8c375ca6f7f6419290d59f9d3acbc, type: 2}
-  - {fileID: 2100000, guid: 1dcfa47452fe82f429f6ebbdb2075d27, type: 2}
-  - {fileID: 2100000, guid: 85a2bc9e5db22d74db1540ef5b278c74, type: 2}
-  transitionDuration: 2
-  isTransitioning: 0
-  timeBetweenTransitions: 10
-  spawnManager: {fileID: 1243524705}
 --- !u!1 &1492603401
 GameObject:
   m_ObjectHideFlags: 0
@@ -9206,6 +9183,60 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 100}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1571318534
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1571318536}
+  - component: {fileID: 1571318535}
+  m_Layer: 0
+  m_Name: SkyBox Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1571318535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571318534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6888ac9330caab4f95a7868fd747a30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skyBoxes:
+  - {fileID: 2100000, guid: a3b2b2ce468bb4e4f8c239bf1c450cc7, type: 2}
+  - {fileID: 2100000, guid: 4cf25fa8993877546b19a204fb5e2c79, type: 2}
+  - {fileID: 2100000, guid: cf929a4517889a04f92e6e5688a65e6c, type: 2}
+  - {fileID: 2100000, guid: fec984d38add9db4da4c0282a1af9771, type: 2}
+  - {fileID: 2100000, guid: aab03a2be811ea04da320231baf253e7, type: 2}
+  transitionDuration: 2
+  isTransitioning: 0
+  timeBetweenTransitions: 10
+  spawnManager: {fileID: 1243524705}
+--- !u!4 &1571318536
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571318534}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10080,3 +10111,4 @@ SceneRoots:
   - {fileID: 247702840}
   - {fileID: 1357195264}
   - {fileID: 1443449935}
+  - {fileID: 1571318536}

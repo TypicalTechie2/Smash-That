@@ -166,7 +166,7 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
     Android: com.OnePieceTechie.SmashThat
-    Standalone: com.DefaultCompany.Smash-That
+    Standalone: com.OnePieceTechie.Smash-That
   buildNumber:
     Standalone: 0
     VisionOS: 0
